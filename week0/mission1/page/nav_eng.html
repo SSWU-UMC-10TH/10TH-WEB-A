@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: 'Pretendard', sans-serif; 
+            cursor: pointer;
+        }
+        
+        a.subnav__item {
+            text-decoration: none;
+        }
+
+        .lang-ko .ko{
+            background-color: coral;
+            color: white;
+        }
+
+        .lang-en .en{
+            background-color: coral;
+            color: white;
+        }
+
+        header{
+            margin: 0 auto;
+            width: 1092px;
+            height: 77px;
+            border: solid 5px #000;
+            border-radius: 40px 100px 30px 80px / 50px 30px 60px 20px;
+            box-shadow: 10px 10px 0px #000;
+            box-sizing: border-box;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo{
+            font-size: 30px;
+            font-weight: bold;
+
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .logo__image{
+            position: relative;
+            width: 36px;
+            height: 36px;
+            background-color: coral;
+            border: 2px solid #000;
+            border-radius: 40px 100px 30px 80px / 50px 30px 60px 20px;
+
+        }
+
+
+        .logo__image:hover{
+            transform: rotate(-30deg);
+        }
+
+        .logo__image>img{
+            position: absolute;
+            top: calc(50% - 14px);
+            left: calc(50% - 14px);
+            width: 28px;
+            height: 28px;
+        }
+
+        nav{
+            width: 483px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav__item{
+            color: gray;
+            font-weight: 600;
+        }
+
+        .color{
+            color: coral;
+        }
+
+        .subnav{
+            width: 164px;
+            height: 38px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            border: solid 2px #000;
+            border-radius: 40px 40px 40px 40px / 40px 40px 40px 40px;
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        .subnav__item{
+            font-size: 12px;
+            color: gray;
+            font-weight: bold;
+            width: 40px;
+            height: 27px;
+            border: 2px solid #000;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        @media screen and (max-width: 1024px) {
+            .nav__item{
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="lang-en">
+    <header>
+        <div class="logo">
+            <div class="logo__image">
+                <img src="../src/img/logo.png" alt="">
+            </div>
+            Aido
+        </div>
+        <nav>
+            <div class="nav__item">고양이 친구들</div>
+            <div class="nav__item">패치 노트</div>
+            <div class="nav__item color">앱 다운로드</div>
+            <div class="subnav">
+                <div class="subnav__item">언어</div>
+                <a href="./nav.html" class="subnav__item ko">KO</a>
+                <a href="./nav_eng.html" class="subnav__item en">EN</a>
+            </div>
+        </nav>
+    </header>
+</body>
+</html>
