@@ -2,8 +2,10 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios'; // 또는 기존 axiosInstance 사용
+import { useNavigate } from 'react-router-dom';
 
 const LP = () => {
+  const navigate = useNavigate();
   const { lpid } = useParams();
 
   // 상세 데이터 패칭 (키에 lpid 포함)
@@ -23,7 +25,7 @@ const LP = () => {
   const lp = data;
 
   return (
-    <div className="bg-[#0f0f0f] min-h-screen flex justify-center p-8">
+    <div onClick={()=> navigate(`/lp/${lpid}`)} className="bg-[#0f0f0f] min-h-screen flex justify-center p-8">
       <div className="w-full max-w-4xl bg-[#1e1e1e] rounded-2xl p-10 shadow-2xl relative">
         
         {/* 상단 섹션: 유저 정보 및 업로드일 */}

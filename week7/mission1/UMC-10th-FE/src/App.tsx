@@ -13,6 +13,7 @@ import GoogleLoginRedirectPage from './pages/GoogleLoginRedirectPage'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import LP from './pages/LP';
+import LpDetailPage from './pages/LpDetailPage';
 
  // publicRoutes: 모든 사용자가 접근 가능한 페이지
 const publicRoutes: RouteObject[] = [
@@ -22,11 +23,12 @@ const publicRoutes: RouteObject[] = [
     errorElement: <NotFoundPage />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: "lp/:lpid", element: <LP /> },
+      // { path: "lps", element: <LP /> },
       { path: "v1/login/google/callback", element: <GoogleLoginRedirectPage />},
       { path: 'login', element: <LoginPage /> },
       { path: 'signup', element: <SignupPage /> },
       { path: "v1/login/google/callback", element: <GoogleLoginRedirectPage />},
+      { path: "lp/:lpid", element: <LpDetailPage />}
     ]
   }
 ];
