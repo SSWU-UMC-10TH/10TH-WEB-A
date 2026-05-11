@@ -5,6 +5,7 @@ import SideBar from './SideBar';
 import { useGetInfiniteLpList } from '../hooks/queries/useGetInfiniteLpList';
 import { PAGENATION_ORDER } from '../enum/commmon';
 import LpSkeleton from '../pages/LpSkeleton'
+import LpModal from '../pages/LpModal'
 
 interface HomeContextType {
   isSideOpen: boolean;
@@ -12,6 +13,12 @@ interface HomeContextType {
 }
 
 const HomePage = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleOpenModal = () =>{
+    setIsModalOpen(!isModalOpen);
+  }
+  console.log(isModalOpen)
+
   const navigate = useNavigate();
   const { isSideOpen, toggleSideBar } = useOutletContext<HomeContextType>();
 
@@ -149,10 +156,13 @@ const HomePage = () => {
 
         <button
           className="fixed bottom-8 right-8 w-14 h-14 bg-pink-500 rounded-full flex items-center justify-center text-white text-3xl shadow-2xl hover:bg-pink-600 transition-all active:scale-90 z-50"
-          onClick={() => navigate('/upload')}
+          onClick={() => handleOpenModal()}
         >
           +
         </button>
+        {isModalOpen && (
+          <LpModal onClick={handleOpenModal}/>
+        )}
       </main>
     </div>
   );
