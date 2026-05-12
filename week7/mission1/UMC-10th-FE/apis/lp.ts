@@ -28,3 +28,12 @@ export const deleteLike = async ({lpid}:RequestLpDto):Promise<ResponseLikeLpDto>
 
     return data;
 }
+
+export const postLp = async (formData: FormData): Promise<any> => {
+    const { data } = await axiosInstance.post("/v1/lps", formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+    return data;
+};
