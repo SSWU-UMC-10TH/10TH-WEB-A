@@ -9,6 +9,7 @@ const SideBar = () => {
             <Link to='/mypage'>
                 <button className="text-md bg-gray-900 text-white">마이페이지</button>
             </Link>
+            <button className='text-white '>탈퇴하기</button>
         </div>
     </div>
   )

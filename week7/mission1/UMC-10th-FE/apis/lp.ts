@@ -37,3 +37,17 @@ export const postLp = async (formData: FormData): Promise<any> => {
     });
     return data;
 };
+
+export const updateLp = async ({ lpid, formData }: { lpid: number; formData: FormData }) => {
+    const { data } = await axiosInstance.patch(`/v1/lps/${lpid}`, formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+    return data;
+};
+
+export const deleteLp = async ({ lpid }: { lpid: number }) => {
+    const { data } = await axiosInstance.delete(`/v1/lps/${lpid}`);
+    return data;
+};
