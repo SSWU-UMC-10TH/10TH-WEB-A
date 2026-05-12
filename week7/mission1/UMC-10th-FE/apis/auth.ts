@@ -21,3 +21,12 @@ export const postLogout = async() => {
     const {data} = await axiosInstance.post("/v1/auth/signout")
     return data;
 }
+
+export const updateMyInfo = async (formData: FormData) => {
+    const { data } = await axiosInstance.patch("/v1/users", formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+    return data;
+};

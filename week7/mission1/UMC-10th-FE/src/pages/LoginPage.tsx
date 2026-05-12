@@ -3,6 +3,7 @@ import useForm from '../hooks/useForm';
 import { validateSignin, type UserSigninInformation } from '../utils/validate';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useMutation } from '@tanstack/react-query'; // useMutation 임포트
 import google from '../assets/google.png'
 
 const LoginPage = () => {
@@ -23,25 +24,32 @@ const LoginPage = () => {
         validate: validateSignin
     });
 
-    const handleSubmit = async () => {
-        try {
-            // values를 login 함수에 전달합니다.
-            await login(values);
-            // 로그인이 성공한 뒤 이동하도록 await 다음에 배치
-            navigate("/mypage"); 
-        } catch (error) {
-            // 에러 처리는 AuthContext에서 하므로 여기서는 필요 시 추가 로직만 작성
+    // [수정] useMutation을 이용한 로그인 로직 변경
+    const { mutate: loginMutation, isPending } = useMutation({
+        mutationFn: (loginData: UserSigninInformation) => login(loginData),
+        onSuccess: () => {
+            // 로그인 성공 시 홈("/") 화면으로 리다이렉션
+            navigate('/');
+        },
+        onError: (error) => {
+            // 에러 발생 시 처리 (필요에 따라 alert 등 추가)
+            console.error("로그인 실패:", error);
         }
+    });
+
+    const handleSubmit = () => {
+        // mutation 실행
+        loginMutation(values);
     };
 
     const handleGoogleLogin = () => {
-        window.location.href=import.meta.env.VITE_SERVER_API_URL + '/v1/auth/google/login'
+        window.location.href = import.meta.env.VITE_SERVER_API_URL + '/v1/auth/google/login'
     }
 
-    // 버튼 활성화 로직 주석 해제 및 수정
     const isDisabled: boolean =
         Object.values(errors || {}).some((error) => error && error.length > 0) || 
-        Object.values(values).some((value) => value === "");
+        Object.values(values).some((value) => value === "") ||
+        isPending; // 로딩 중일 때도 버튼 비활성화
 
     return (
         <div className='flex flex-col items-center justify-center h-full gap-4 bg-black text-white'>
@@ -53,10 +61,10 @@ const LoginPage = () => {
             </div>
 
             <div className='mt-6'>
-                <button className="flex justify-left items-center pl-20 border w-[300px] p-[10px] focus:border-[#807bff] rounded-sm text-white"
+                <button className="flex justify-left items-center pl-20 border w-[300px] p-[10px] focus:border-[#807bff] rounded-sm text-white disabled:opacity-50"
                     type='button' 
                     onClick={handleGoogleLogin} 
-                    disabled={isDisabled} // isDisabled 적용
+                    disabled={isPending} // 구글 로그인 시에도 일반 로그인 로딩 중이면 차단
                     >
                     <img className='w-10' src={google} alt="" />
                     구글 로그인
@@ -77,6 +85,7 @@ const LoginPage = () => {
                         ${errors?.email && touched?.email ? "border-red-500" : "border-gray-300"}`}
                         type="email" 
                         placeholder="이메일"
+                        disabled={isPending}
                     />
                     {errors?.email && touched?.email && (
                         <span className='text-red-500 text-sm'>{errors.email}</span>
@@ -90,6 +99,7 @@ const LoginPage = () => {
                         ${errors?.password && touched?.password ? "border-red-500" : "border-gray-300"}`}
                         type="password" 
                         placeholder="비밀번호"
+                        disabled={isPending}
                     />
                     {errors?.password && touched?.password && (
                         <span className='text-red-500 text-sm'>{errors.password}</span>
@@ -99,10 +109,10 @@ const LoginPage = () => {
                 <button 
                     type='button' 
                     onClick={handleSubmit} 
-                    disabled={isDisabled} // isDisabled 적용
+                    disabled={isDisabled}
                     className='w-full bg-pink-500 text-white py-3 rounded-md text-lg font-medium hover:bg-pink-600 transition-colors disabled:bg-gray-500 disabled:cursor-not-allowed'
                 >   
-                    로그인
+                    {isPending ? '로그인 중...' : '로그인'}
                 </button>
             </div>
         </div>
