@@ -5,9 +5,12 @@ import SideBar from './SideBar';
 import { useGetInfiniteLpList } from '../hooks/queries/useGetInfiniteLpList';
 import { PAGENATION_ORDER } from '../enum/commmon';
 import LpSkeleton from '../pages/LpSkeleton'
+<<<<<<< HEAD
 import { set } from 'zod';
 import LpModal from '../pages/LpModal'
 import { is } from 'zod/v4/locales';
+=======
+>>>>>>> 545616dc564e8cf2df26e0c0b8d32d2cd18a86a8
 
 interface HomeContextType {
   isSideOpen: boolean;
@@ -15,12 +18,15 @@ interface HomeContextType {
 }
 
 const HomePage = () => {
+<<<<<<< HEAD
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOpenModal = () =>{
     setIsModalOpen(!isModalOpen);
   }
   console.log(isModalOpen)
 
+=======
+>>>>>>> 545616dc564e8cf2df26e0c0b8d32d2cd18a86a8
   const navigate = useNavigate();
   const { isSideOpen, toggleSideBar } = useOutletContext<HomeContextType>();
 
@@ -158,6 +164,7 @@ const HomePage = () => {
 
         <button
           className="fixed bottom-8 right-8 w-14 h-14 bg-pink-500 rounded-full flex items-center justify-center text-white text-3xl shadow-2xl hover:bg-pink-600 transition-all active:scale-90 z-50"
+<<<<<<< HEAD
           onClick={() => handleOpenModal()}
         >
           +
@@ -165,6 +172,12 @@ const HomePage = () => {
         {isModalOpen && (
           <LpModal onClick={handleOpenModal}/>
         )}
+=======
+          onClick={() => navigate('/upload')}
+        >
+          +
+        </button>
+>>>>>>> 545616dc564e8cf2df26e0c0b8d32d2cd18a86a8
       </main>
     </div>
   );
